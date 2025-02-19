@@ -1,4 +1,3 @@
-
 # Use Ubuntu 16.04 (Compatible with XAMPP & Atutor)
 FROM ubuntu:16.04
 
@@ -16,11 +15,10 @@ WORKDIR /atutor-lab
 RUN wget -O xampp-linux-x64-5.6.40-1-installer.run "https://excellmedia.dl.sourceforge.net/project/xampp/XAMPP%20Linux/5.6.40/xampp-linux-x64-5.6.40-1-installer.run" && \
     wget -O Atutor.tar.gz "https://master.dl.sourceforge.net/project/atutor/atutor_2_2_1/ATutor-2.2.1.tar.gz"
 
-# Copy & Install XAMPP (Includes PHP 5.6, Apache, and MySQL)
-COPY xampp-linux-x64-5.6.40-1-installer.run /xampp-installer.run
-RUN chmod +x /xampp-installer.run && \
-    /xampp-installer.run --mode unattended && \
-    rm /xampp-installer.run
+# Install XAMPP (Remove COPY step)
+RUN chmod +x xampp-linux-x64-5.6.40-1-installer.run && \
+    ./xampp-linux-x64-5.6.40-1-installer.run --mode unattended && \
+    rm xampp-linux-x64-5.6.40-1-installer.run
 
 # Copy Atutor to XAMPP's htdocs
 COPY Atutor.tar.gz /opt/lampp/htdocs/

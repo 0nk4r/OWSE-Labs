@@ -20,10 +20,12 @@ RUN chmod +x xampp-linux-x64-5.6.40-1-installer.run && \
     ./xampp-linux-x64-5.6.40-1-installer.run --mode unattended && \
     rm xampp-linux-x64-5.6.40-1-installer.run
 
-# Copy Atutor to XAMPP's htdocs
-COPY Atutor.tar.gz /opt/lampp/htdocs/
-WORKDIR /opt/lampp/htdocs/
-RUN tar -xzf Atutor.tar.gz && rm Atutor.tar.gz && chmod -R 777 ATutor
+# Move Atutor to XAMPP's htdocs
+RUN mv Atutor.tar.gz /opt/lampp/htdocs/ && \
+    cd /opt/lampp/htdocs/ && \
+    tar -xzf Atutor.tar.gz && \
+    rm Atutor.tar.gz && \
+    chmod -R 777 ATutor
 
 # Expose Port 80 (Apache) and 3306 (MySQL)
 EXPOSE 80 3306
